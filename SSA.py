@@ -14,7 +14,7 @@ def classic_ssa(signal, L=10, numComp=10):
     This approach is based on the nice tutorial that can be found here: 
     https://www.kaggle.com/code/jdarcy/introducing-ssa-for-time-series-decomposition
     '''
-    N = len(signal) # get the lag length
+    N = len(signal) # get the length of the signal
     K = N - L + 1 # get the length of the embedded signals
     # Embedding
     X = np.array([signal[i:L+i] for i in range(0, K)]).T
@@ -33,7 +33,7 @@ def accelerated_ssa(signal, L=10, numComp=10):
     import numba as nb
     import threading
     from tqdm import tqdm
-    N = len(signal) # get the lag length
+    N = len(signal) # get the length of the signal
     K = N - L + 1 # get the length of the embedded signals
     # Define just in time functions with @jit decorators and eager compilation
     @nb.jit(nb.float64[:,:](nb.float64[:,:], nb.float64[:,:]), nopython=True)
